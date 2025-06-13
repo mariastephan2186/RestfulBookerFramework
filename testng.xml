@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Practice Automation Suite" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="framework.Listeners.TestListener"/>
+    </listeners>
+
+    <test name="Practice Page Functional Tests">
+        <classes>
+            <class name="Tests.PracticePageTest">
+                <methods>
+                    <include name="testRadioButtons"/>
+                    <include name="testSuggestionBox"/>
+                    <include name="testDropdown"/>
+                    <include name="testCheckboxes"/>
+                    <include name="testWindowHandling"/>
+                    <include name="testAlertHandling"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Cucumber BDD Tests">
+        <classes>
+            <class name="Runners.CucumberTestRunner"/>
+        </classes>
+    </test>
+</suite>
