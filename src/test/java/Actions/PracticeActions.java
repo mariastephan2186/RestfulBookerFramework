@@ -3,6 +3,7 @@ package Actions;
 import Pages.PracticePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
@@ -93,5 +94,11 @@ public class PracticeActions {
         } catch (RuntimeException e) {
             return false;
         }
+    }
+
+    public void performNegativeTest(String invalidText) {
+        searchAndSelectSuggestion(invalidText);
+        Assert.assertTrue(practicePage.verifySuggestionDoesNotExist(invalidText),
+                "Suggestion '" + invalidText + "' should not exist but was found");
     }
 }

@@ -1,6 +1,7 @@
 package Pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -96,26 +97,6 @@ public class PracticePage extends BasePage {
         }
     }
 
-    public void toggleElement(boolean show) {
-        click(show ? showButton : hideButton);
-    }
-
-    public boolean isElementDisplayed() {
-        return isDisplayed(showHideField);
-    }
-
-    public void hoverOverElement() {
-        WebElement element = waitForElement(mouseHover);
-        // Implement hover action
-    }
-
-    public void switchToIframe() {
-        driver.switchTo().frame(driver.findElement(iframeExample));
-    }
-
-    public void switchToMainContent() {
-        driver.switchTo().defaultContent();
-    }
 
     public boolean isCheckboxSelected(int index) {
         By checkboxLocator = By.xpath("//input[@type='checkbox']");
@@ -156,6 +137,58 @@ public class PracticePage extends BasePage {
         By radioButtonLocator = By.xpath("//input[@type='radio']");
         List<WebElement> radioButtons = driver.findElements(radioButtonLocator);
         return radioButtons.stream().anyMatch(WebElement::isSelected);
+    }
+
+    public boolean verifySuggestionDoesNotExist(String expectedText) {
+        try {
+            WebElement suggestion = driver.findElement(By.xpath("//div[contains(text(),'" + expectedText + "')]"));
+            return false; // suggestion exists when it shouldn't
+        } catch (NoSuchElementException e) {
+            return true; // expected behavior - element not found
+        }
+    }
+
+    // Using switchToAlert() and getAlertText() for alert handling
+    public String handleSimpleAlert() {
+        click(alertButton);
+        switchToAlert();
+        String alertText = getAlertText();
+        driver.switchTo().alert().accept();
+        return alertText;
+    }
+
+    // Another example with confirm alert
+    public String handleConfirmAlert(boolean accept) {
+        click(confirmButton);
+        switchToAlert();
+        String alertText = getAlertText();
+        if (accept) {
+            driver.switchTo().alert().accept();
+        } else {
+            driver.switchTo().alert().dismiss();
+        }
+        return alertText;
+    }
+
+    public void toggleElement(boolean show) {
+        click(show ? showButton : hideButton);
+    }
+
+    public boolean isElementDisplayed() {
+        return isDisplayed(showHideField);
+    }
+
+    public void hoverOverElement() {
+        WebElement element = waitForElement(mouseHover);
+        // Implement hover action
+    }
+
+    public void switchToIframe() {
+        driver.switchTo().frame(driver.findElement(iframeExample));
+    }
+
+    public void switchToMainContent() {
+        driver.switchTo().defaultContent();
     }
 
 }

@@ -37,7 +37,11 @@ public class PracticeStepdefs {
                 "Expected suggestion containing '" + expectedText + "' was not found");
     }
 
+    @Then("I should not see suggestions containing the term {string}")
+    public void iShouldNotSeeSuggestionsContainingTheTerm(String invalidText) {
+        practicePageActions2.performNegativeTest(invalidText);
 
+    }
 
     @When("I select {string} from the dropdown")
     public void iSelectFromTheDropdown(String option) {
@@ -119,4 +123,6 @@ public class PracticeStepdefs {
 
         }
     }
+
+
 }

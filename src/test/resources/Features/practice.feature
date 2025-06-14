@@ -10,10 +10,14 @@ Feature: Practice Page Automation
   Scenario: Radio Button Selection
     When I select radio button "1"
     Then the radio button "1" should be selected
+    When I select radio button "2"
+    Then the radio button "2" should be selected
 
   Scenario: Suggestion Box
     When I type "Ind" in the suggestion box
     Then I should see suggestions containing "India"
+    When I type "hhj" in the suggestion box
+    Then I should not see suggestions containing the term "hhhs"
 
   Scenario: Dropdown Selection
     When I select "Option2" from the dropdown

@@ -2,8 +2,12 @@ package Tests;
 
 
 import Actions.PracticeActions;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 public class PracticePageTest {
@@ -59,6 +63,21 @@ public class PracticePageTest {
     @Test
     public void testAlertHandling() {
         practiceActions.handleAlert("Accept");
+    }
+
+    @Test
+    public void testSuggestionBoxNegative() {
+        // Test invalid country name
+        practiceActions.performNegativeTest("XYZABC");
+
+        // Test with special characters
+        practiceActions.performNegativeTest("@#$%");
+
+        // Test with numbers
+        practiceActions.performNegativeTest("123456");
+
+        // Test with empty input
+        practiceActions.performNegativeTest("");
     }
 
     @AfterClass
