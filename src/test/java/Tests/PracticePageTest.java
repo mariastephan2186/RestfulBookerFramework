@@ -1,64 +1,64 @@
 package Tests;
 
 
-import Actions.PracticePageActions;
+import Actions.PracticeActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
 public class PracticePageTest {
     private WebDriver driver;
-    private PracticePageActions practicePageActions;
+    private PracticeActions practiceActions;
 
     @BeforeClass
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        practicePageActions = new PracticePageActions(driver);
+        practiceActions = new PracticeActions(driver);
     }
 
     @BeforeMethod
     public void navigateToPage() {
-        practicePageActions.openPracticePage();
+        practiceActions.openPracticePage();
     }
 
     @Test
     public void testRadioButtons() {
-        practicePageActions.selectRadioButtonAndVerify(0);
+        practiceActions.selectRadioButtonAndVerify(0);
     }
 
     @Test
     public void testSuggestionBox() {
-        practicePageActions.searchAndSelectSuggestion("Ind");
-        practicePageActions.verifySuggestionExists("India");
-        practicePageActions.searchAndSelectSuggestion("USA");
-        practicePageActions.verifySuggestionExists("United States of America");
+        practiceActions.searchAndSelectSuggestion("Ind");
+        practiceActions.verifySuggestionExists("India");
+        practiceActions.searchAndSelectSuggestion("USA");
+        practiceActions.verifySuggestionExists("United States of America");
     }
 
     @Test
     public void testDropdown() {
-        practicePageActions.selectFromDropdown("Option1");
-        practicePageActions.getSelectedDropdownOption();
+        practiceActions.selectFromDropdown("Option1");
+        practiceActions.getSelectedDropdownOption();
 
     }
 
     @Test
     public void testCheckboxes() {
-        practicePageActions.selectCheckbox("1");
-        practicePageActions.isCheckboxSelected("1");
-        practicePageActions.deselectCheckbox("1");
-        practicePageActions.isCheckboxSelected("1");
+        practiceActions.selectCheckbox("1");
+        practiceActions.isCheckboxSelected("1");
+        practiceActions.deselectCheckbox("1");
+        practiceActions.isCheckboxSelected("1");
     }
 
     @Test
     public void testWindowHandling() {
-        practicePageActions.handleNewWindow();
-        practicePageActions.openPracticePage();
+        practiceActions.handleNewWindow();
+        practiceActions.openPracticePage();
     }
 
     @Test
     public void testAlertHandling() {
-        practicePageActions.handleAlert("Accept");
+        practiceActions.handleAlert("Accept");
     }
 
     @AfterClass

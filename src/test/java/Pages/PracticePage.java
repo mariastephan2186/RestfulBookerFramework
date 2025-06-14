@@ -3,8 +3,11 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Set;
 
 public class PracticePage extends BasePage {
     private static final String PAGE_URL = "https://rahulshettyacademy.com/AutomationPractice/";
@@ -34,10 +37,15 @@ public class PracticePage extends BasePage {
     }
 
     public void selectRadioButton(int index) {
-        List<WebElement> radios = driver.findElements(radioButtons);
+        List<WebElement> radios = driver.findElements(By.cssSelector("input[type='radio']"));
         if (index >= 0 && index < radios.size()) {
-            radios.get(index).click();
+            // Wait for the element to be clickable before interacting
+            WebElement radioButton = wait.until(ExpectedConditions.elementToBeClickable(radios.get(index)));
+            radioButton.click();
+        } else {
+            throw new IllegalArgumentException("Radio button index out of bounds: " + index);
         }
+
     }
 
     public void typeInSuggestionBox(String text) {
@@ -45,7 +53,12 @@ public class PracticePage extends BasePage {
     }
 
     public void selectFromDropdown(String option) {
-        selectDropdownByText(dropdown, option);
+
+        By dropdownLocator = By.id("dropdown-class-example");
+        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(dropdownLocator));
+        Select dropdown = new Select(dropdownElement);
+        dropdown.selectByVisibleText(option);
+
     }
 
     public void selectCheckbox(int index) {
@@ -103,5 +116,47 @@ public class PracticePage extends BasePage {
     public void switchToMainContent() {
         driver.switchTo().defaultContent();
     }
+
+    public boolean isCheckboxSelected(int index) {
+        By checkboxLocator = By.xpath("//input[@type='checkbox']");
+        List<WebElement> checkboxes = driver.findElements(checkboxLocator);
+        if (index >= 0 && index < checkboxes.size()) {
+            return checkboxes.get(index).isSelected();
+        }
+        throw new IllegalArgumentException("Checkbox index out of bounds: " + index);
+    }
+
+    public String getSelectedDropdownOption() {
+        By dropdownLocator = By.id("dropdown-class-example");
+        WebElement dropdownElement = wait.until(ExpectedConditions.presenceOfElementLocated(dropdownLocator));
+        Select dropdown = new Select(dropdownElement);
+        return dropdown.getFirstSelectedOption().getText();
+    }
+
+
+    public void handleNewWindow() {
+        String mainWindow = driver.getWindowHandle();
+        Set<String> windows = driver.getWindowHandles();
+
+        for (String windowHandle : windows) {
+            if (!windowHandle.equals(mainWindow)) {
+                try {
+                    driver.switchTo().window(windowHandle);
+                    driver.close();
+                    driver.switchTo().window(mainWindow);
+                    break;
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to handle new window", e);
+                }
+            }
+        }
+    }
+
+    public boolean isRadioButtonSelected() {
+        By radioButtonLocator = By.xpath("//input[@type='radio']");
+        List<WebElement> radioButtons = driver.findElements(radioButtonLocator);
+        return radioButtons.stream().anyMatch(WebElement::isSelected);
+    }
+
 }
 
