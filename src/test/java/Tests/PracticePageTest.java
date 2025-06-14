@@ -10,12 +10,25 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 public class PracticePageTest {
     private WebDriver driver;
     private PracticeActions practiceActions;
+    private Properties props;
 
     @BeforeClass
     public void setUp() {
+        props = new Properties();
+        try {
+            FileInputStream input = new FileInputStream("config.properties");
+            props.load(input);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         practiceActions = new PracticeActions(driver);
