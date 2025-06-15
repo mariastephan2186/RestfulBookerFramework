@@ -1,6 +1,5 @@
 package StepDefs.Hooks;
 
-import Actions.PracticeActions;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -9,7 +8,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,20 +15,20 @@ import java.io.ByteArrayInputStream;
 
 public class Hooks {
     private static final Logger log = LoggerFactory.getLogger(Hooks.class);
-    private static WebDriver driver;
+    protected static WebDriver driver;
 
     // Remove @Inject annotation - PicoContainer will handle injection automatically
     public Hooks() {
     }
+
+
     @Before
-    public void setUp(Scenario scenario) {
-        log.info("Starting scenario: {}", scenario.getName());
-        // Setup logic
+    public void setUp() {
+
         driver = new ChromeDriver(); // or whatever browser you're using
         driver.manage().window().maximize();
         // Initialize Actions with the driver
     }
-
    /*
    //Run browser tests in headless mode
        public void setUp() {
@@ -57,13 +55,11 @@ public class Hooks {
 
         }
         log.info("Finished scenario: {}", scenario.getName());
-        // Cleanup logic
 
+        // Cleanup logic
         if (driver != null) {
             driver.quit();
         }
 
     }
-
-
 }

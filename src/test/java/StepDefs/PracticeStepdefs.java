@@ -11,6 +11,7 @@ import io.qameta.allure.Feature;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+
 @Feature("Practice Page")
 public class PracticeStepdefs {
     private WebDriver driver;
@@ -23,10 +24,14 @@ public class PracticeStepdefs {
         practicePageActions2 = new PracticeActions(driver);
     }
 
+
     @Given("I am on the practice page")
     public void iAmOnThePracticePage() {
         practicePageActions2.openPracticePage();
         Allure.step("I am on the practice page");
+        Assert.assertEquals(driver.getTitle(), "Practice Page",
+                "Failed to navigate to Practice Page");
+
     }
 
     @When("I type {string} in the suggestion box")
@@ -45,7 +50,10 @@ public class PracticeStepdefs {
     @Then("I should not see suggestions containing the term {string}")
     public void iShouldNotSeeSuggestionsContainingTheTerm(String invalidText) {
         practicePageActions2.performNegativeTest(invalidText);
-Allure.step("I should not see suggestions containing the term '" + invalidText + "'");
+        Allure.step("I should not see suggestions containing the term '" + invalidText + "'");
+        Assert.assertTrue(practicePageActions2.verifySuggestionExists(invalidText),
+                "Unexpected suggestion '" + invalidText + "' was found");
+
     }
 
     @When("I select {string} from the dropdown")
@@ -56,7 +64,7 @@ Allure.step("I should not see suggestions containing the term '" + invalidText +
 
     @Then("{string} should be selected in the dropdown")
     public void shouldBeSelectedInTheDropdown(String expectedOption) {
-        String  actualOption = practicePageActions2.getSelectedDropdownOption();
+        String actualOption = practicePageActions2.getSelectedDropdownOption();
         Assert.assertEquals(actualOption, expectedOption,
                 "Expected option '" + expectedOption + "' but found '" + actualOption + "'");
         Allure.step("Expected option '" + expectedOption + "' but found '" + actualOption + "'");
@@ -126,7 +134,7 @@ Allure.step("I should not see suggestions containing the term '" + invalidText +
 
     @After
     public void tearDown() {
-       if (driver != null) {
+        if (driver != null) {
             driver.quit();
 
 

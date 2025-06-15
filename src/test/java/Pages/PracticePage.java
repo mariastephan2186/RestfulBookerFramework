@@ -29,6 +29,7 @@ public class PracticePage extends BasePage {
     private final By mouseHover = By.id("mousehover");
     private final By iframeExample = By.id("courses-iframe");
 
+
     public PracticePage(WebDriver driver) {
         super(driver);
     }
@@ -157,7 +158,7 @@ public class PracticePage extends BasePage {
         return alertText;
     }
 
-    // Another example with confirm alert
+    // Another example of confirm alert
     public String handleConfirmAlert(boolean accept) {
         click(confirmButton);
         switchToAlert();

@@ -13,6 +13,7 @@ Feature: Practice Page Automation
     When I select radio button "2"
     Then the radio button "2" should be selected
 
+
   Scenario: Suggestion Box
     When I type "Ind" in the suggestion box
     Then I should see suggestions containing "India"

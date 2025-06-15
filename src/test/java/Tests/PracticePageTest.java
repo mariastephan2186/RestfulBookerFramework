@@ -2,10 +2,8 @@ package Tests;
 
 
 import Actions.PracticeActions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
+
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -14,13 +12,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class PracticePageTest {
+public class PracticePageTest{
     private WebDriver driver;
     private PracticeActions practiceActions;
     private Properties props;
 
     @BeforeClass
     public void setUp() {
+        practiceActions = new PracticeActions(driver);
+
         props = new Properties();
         try {
             FileInputStream input = new FileInputStream("config.properties");
@@ -29,15 +29,21 @@ public class PracticePageTest {
             e.printStackTrace();
         }
 
-        driver = new ChromeDriver();
+    driver = new ChromeDriver();
         driver.manage().window().maximize();
         practiceActions = new PracticeActions(driver);
+
     }
+
+
+
 
     @BeforeMethod
     public void navigateToPage() {
         practiceActions.openPracticePage();
     }
+
+
 
     @Test
     public void testRadioButtons() {
