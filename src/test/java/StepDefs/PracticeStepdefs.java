@@ -1,6 +1,7 @@
 package StepDefs;
 
 import Actions.PracticeActions;
+import StepDefs.Hooks.Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
@@ -9,7 +10,6 @@ import io.cucumber.java.en.When;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 
 @Feature("Practice Page")
@@ -17,21 +17,23 @@ public class PracticeStepdefs {
     private WebDriver driver;
     private PracticeActions practicePageActions2;
 
+    public PracticeStepdefs(Hooks hooks) {
+        this.driver = hooks.driver; // Use the driver from Hooks
+    }
+
     @Before
     public void setup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+
         practicePageActions2 = new PracticeActions(driver);
+        practicePageActions2.openPracticePage();
     }
 
 
     @Given("I am on the practice page")
     public void iAmOnThePracticePage() {
-        practicePageActions2.openPracticePage();
-        Allure.step("I am on the practice page");
         Assert.assertEquals(driver.getTitle(), "Practice Page",
                 "Failed to navigate to Practice Page");
-
+        Allure.step("I am on the practice page");
     }
 
     @When("I type {string} in the suggestion box")
@@ -131,6 +133,7 @@ public class PracticeStepdefs {
                 "Failed to handle alert");
 
     }
+
 
     @After
     public void tearDown() {

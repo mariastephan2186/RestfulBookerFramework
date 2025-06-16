@@ -101,4 +101,13 @@ public class PracticeActions {
         Assert.assertTrue(practicePage.verifySuggestionDoesNotExist(invalidText),
                 "Suggestion '" + invalidText + "' should not exist but was found");
     }
+
+
+    public void switchToMainContent() {
+        practicePage.switchToMainContent();
+    }
+
+    public void openTab() {
+        practicePage.openTab();
+    }
 }

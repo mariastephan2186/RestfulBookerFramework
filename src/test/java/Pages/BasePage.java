@@ -70,4 +70,12 @@ public class BasePage {
     protected void dismissAlert() {
         driver.switchTo().alert().dismiss();
     }
+
+    protected void switchToFrame(WebElement frame) {
+        driver.switchTo().frame(frame);
+    }
+
+    protected void switchToFrame(int index) {
+        driver.switchTo().frame(index);
+    }
 }

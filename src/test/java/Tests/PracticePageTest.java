@@ -3,6 +3,7 @@ package Tests;
 
 import Actions.PracticeActions;
 
+import framework.Listeners.TestListener;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -11,6 +12,8 @@ import org.testng.annotations.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
+@Listeners(TestListener.class)
 
 public class PracticePageTest{
     private WebDriver driver;
@@ -99,10 +102,13 @@ public class PracticePageTest{
         practiceActions.performNegativeTest("");
     }
 
+
     @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
+
+
     }
 }

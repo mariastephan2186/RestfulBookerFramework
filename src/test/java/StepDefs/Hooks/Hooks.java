@@ -15,19 +15,17 @@ import java.io.ByteArrayInputStream;
 
 public class Hooks {
     private static final Logger log = LoggerFactory.getLogger(Hooks.class);
-    protected static WebDriver driver;
+    public static WebDriver driver;
 
     // Remove @Inject annotation - PicoContainer will handle injection automatically
     public Hooks() {
     }
 
-
     @Before
     public void setUp() {
-
+        // Initialize Actions with the driver
         driver = new ChromeDriver(); // or whatever browser you're using
         driver.manage().window().maximize();
-        // Initialize Actions with the driver
     }
    /*
    //Run browser tests in headless mode

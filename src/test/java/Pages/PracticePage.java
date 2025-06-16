@@ -164,9 +164,9 @@ public class PracticePage extends BasePage {
         switchToAlert();
         String alertText = getAlertText();
         if (accept) {
-            driver.switchTo().alert().accept();
+            super.switchToAlert();
         } else {
-            driver.switchTo().alert().dismiss();
+            super.dismissAlert();
         }
         return alertText;
     }
@@ -184,8 +184,8 @@ public class PracticePage extends BasePage {
         // Implement hover action
     }
 
-    public void switchToIframe() {
-        driver.switchTo().frame(driver.findElement(iframeExample));
+    public void switchToIframe(WebElement frame) {
+        driver.switchTo().frame(frame);
     }
 
     public void switchToMainContent() {
