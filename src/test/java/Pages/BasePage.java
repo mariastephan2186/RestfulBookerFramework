@@ -4,6 +4,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class BasePage {
@@ -25,7 +26,19 @@ public class BasePage {
     }
 
     protected void click(By locator) {
-        waitForClickable(locator).click();
+        try {
+            waitForClickable(locator).click();
+        } catch (org.openqa.selenium.ElementClickInterceptedException e) {
+            WebElement element = driver.findElement(locator);
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            waitForClickable(locator); // wait again after scroll
+            try {
+                element.click();
+            } catch (Exception ex) {
+                // If regular click still fails, try JavaScript click
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+            }
+        }
     }
 
     protected void type(By locator, String text) {
