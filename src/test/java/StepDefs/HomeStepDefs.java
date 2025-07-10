@@ -7,6 +7,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -17,6 +19,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 
+@Epic("Booking Platform")
+@Feature("Home Page")
 public class HomeStepDefs {
     private final HomePage homePage;
     private final BookingPage bookingPage;
@@ -36,6 +40,7 @@ public class HomeStepDefs {
         Hooks.driver.get("https://automationintesting.online/");
         Assert.assertEquals(Hooks.driver.getTitle(), "Restful-booker-platform demo",
                 "Incorrect page title");
+        Allure.step("Homepage displayed");
     }
 
     @Then("the following navigation links should be visible:")

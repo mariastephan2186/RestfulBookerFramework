@@ -8,10 +8,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
 import org.testng.Assert;
 
 import java.util.Map;
-
+@Feature("Booking Page")
 public class BookingStepDefs {
     private final HomePage homePage;
     private final BookingPage BookingPage;
