@@ -136,7 +136,6 @@ Test Plan for Restful Booker Platform
 - Third-party integrations
 - Mobile app testing
 
-## 2. Test Levels
 
 ### 2.1 Functional Testing
 1. **Room Booking Flow**

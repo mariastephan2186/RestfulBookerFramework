@@ -41,7 +41,6 @@ public class HomeStepDefs {
     @Then("the following navigation links should be visible:")
     public void verifyNavigationLinks(DataTable dataTable) {
         List<String> expectedLinks = dataTable.asList();
-
         // First ensure the page is fully loaded
         wait.until(driver -> ((JavascriptExecutor) driver)
                 .executeScript("return document.readyState").equals("complete"));
