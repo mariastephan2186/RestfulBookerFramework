@@ -19,6 +19,21 @@
 - Describes test scenarios in plain English
 - Enables collaboration between technical and non-technical team members
 
+### 4. 1. **ConfigReader file
+
+   `TestContext.java` class serves as a centralized test data container with the following characteristics:
+- It uses a static `Properties` object to store test data
+- Loads 4 main test data properties during initialization: Firstname, Lastname, Email and Phone
+- Provides a getter method to access the properties `getTestData(String key)`
+- The configuration is used in the test steps, particularly in : `BookingStepDefs.java` where
+- Test data can be referenced using `${propertyName}` syntax
+  This configuration setup provides:
+- Centralized test data management
+- Easy configuration changes without code modification
+- Support for both hardcoded and configurable test values
+- Clean separation of test data from test logic
+
+
 ## Dependencies
 - Java 21
 - Maven
@@ -44,12 +59,30 @@
 
 2. Install dependencies:
    bash mvn clean install
+### Key Dependencies Being Installed
+**Testing Frameworks**:
+   - Cucumber (v7.18.0)
+   - TestNG (v7.11.0)
+   - JUnit (v4.13.2)
+
+**Selenium Related**:
+   - selenium-java (v4.32.0)
+   - selenium-devtools-v136 (v4.32.0)
+**Reporting Tools**:
+   - Allure TestNG (v2.24.0)
+   - AspectJ Weaver (v1.9.19)
+**Utility Libraries**:
+   - AssertJ Core (v3.22.0)
+   - SLF4J API (v2.0.9)
+   - Logback Classic (v1.4.11)
+
 
 3. Install Allure (Mac OS):
    bash brew install allure
 4. Running Tests
    bash mvn clean test
 Run specific features using tags:
+
 5.Generate and view Allure reports:
    bash mvn allure:serve
 
@@ -78,13 +111,23 @@ Run specific features using tags:
 - Configurable test data
 
 ### 4. Best Practices
-- Page Object Model
-- Fluent Page Objects
-- Explicit waits
-- Screenshot capture
-- Clean code principles
+   ### Page Object Model
+- Base page class with common methods
+- Separate page classes for different sections (BookingPage, HomePage)
+- Encapsulated web elements and their operations
+- Clear separation between test logic and page implementation
 
+ ### Explicit waits
+- Element presence verification
+- Clickability checks before interactions
+- Page load completion monitoring
+- Custom wait conditions for specific business logic
 
+  ### Clean code principles
+- The framework uses SOLID principles , DRY(Dont Repeat Yourself) 
+and Single Responsibility principle by implementing common methods within the Base class.
+
+  
 ## Contributing
 1. Follow the existing pattern for new features/page objects
 2. Maintain test isolation
@@ -119,9 +162,9 @@ mvn test -Dcucumber.filter.tags="@performance"
 mvn allure:serve
 
 
-Test Plan for Restful Booker Platform
+### Test Plan for Restful Booker Platform
 
-## 1. Test Scope
+### 1. Test Scope
 
 ### In Scope
 - Room booking functionality
@@ -138,22 +181,22 @@ Test Plan for Restful Booker Platform
 
 
 ### 2.1 Functional Testing
-1. **Room Booking Flow**
-    - Room selection
-    - Date picker functionality
+1. **Home Page navigation and verification**
+    - Home Page loading
+    - Verification of home page headers
+    - Visibility of sections like Contact form, Rooms and Book Now options
+
+2. **Room Reservation Flow**
+    - Tapping Book now and navigation to Booking screen
+    - Room reservation
     - Form submission
-    - Booking confirmation
+    - Booking confirmation/errors
 
 2. **Contact Form**
     - Form field validation
     - Successful submission
     - Error handling
 
-3. **Room Details**
-    - Price display
-    - Room information accuracy
-    - Image loading
-    - Amenities list
 
 ### 2.2 Non-Functional Testing
 1. **Performance Testing**
